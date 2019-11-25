@@ -10,10 +10,10 @@ fi
 # Create fake Go workspace if it doesn't exist yet.
 workspace="$PWD/build/_workspace"
 root="$PWD"
-ethdir="$workspace/src/github.com/cpexc"
-if [ ! -L "$ethdir/go-cpx" ]; then
-    mkdir -p "$ethdir"
-    cd "$ethdir"
+cpxdir="$workspace/src/github.com/cpexc"
+if [ ! -L "$cpxdir/go-cpx" ]; then
+    mkdir -p "$cpxdir"
+    cd "$cpxdir"
     ln -s ../../../../../. go-cpx
     cd "$root"
 fi
@@ -23,8 +23,8 @@ GOPATH="$workspace"
 export GOPATH
 
 # Run the command inside the workspace.
-cd "$ethdir/go-cpx"
-PWD="$ethdir/go-cpx"
+cd "$cpxdir/go-cpx"
+PWD="$cpxdir/go-cpx"
 
 # Launch the arguments with the configured environment.
 exec "$@"
