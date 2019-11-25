@@ -1,18 +1,18 @@
-// Copyright 2016 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2016 The go-cpx Authors
+// This file is part of the go-cpx library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-cpx library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-cpx library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-cpx library. If not, see <http://www.gnu.org/licenses/>.
 
 // This file contains some shares testing functionality, common to  multiple
 // different files and modules being tested.
@@ -26,24 +26,24 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind/backends"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/mclock"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/contracts/checkpointoracle/contract"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/les/flowcontrol"
-	"github.com/ethereum/go-ethereum/light"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/enode"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/cpexc/go-cpx/accounts/abi/bind"
+	"github.com/cpexc/go-cpx/accounts/abi/bind/backends"
+	"github.com/cpexc/go-cpx/common"
+	"github.com/cpexc/go-cpx/common/mclock"
+	"github.com/cpexc/go-cpx/consensus/ethash"
+	"github.com/cpexc/go-cpx/contracts/checkpointoracle/contract"
+	"github.com/cpexc/go-cpx/core"
+	"github.com/cpexc/go-cpx/core/rawdb"
+	"github.com/cpexc/go-cpx/core/types"
+	"github.com/cpexc/go-cpx/crypto"
+	"github.com/cpexc/go-cpx/eth"
+	"github.com/cpexc/go-cpx/ethdb"
+	"github.com/cpexc/go-cpx/event"
+	"github.com/cpexc/go-cpx/les/flowcontrol"
+	"github.com/cpexc/go-cpx/light"
+	"github.com/cpexc/go-cpx/p2p"
+	"github.com/cpexc/go-cpx/p2p/enode"
+	"github.com/cpexc/go-cpx/params"
 )
 
 var (

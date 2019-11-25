@@ -1,4 +1,4 @@
-module github.com/ethereum/go-ethereum
+module github.com/cpexc/go-cpx
 
 go 1.13
 

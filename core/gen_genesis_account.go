@@ -7,9 +7,9 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/common/math"
+	"github.com/cpexc/go-cpx/common"
+	"github.com/cpexc/go-cpx/common/hexutil"
+	"github.com/cpexc/go-cpx/common/math"
 )
 
 var _ = (*genesisAccountMarshaling)(nil)

@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/ethereum/go-ethereum/metrics"
-	"github.com/ethereum/go-ethereum/metrics/prometheus"
+	"github.com/cpexc/go-cpx/metrics"
+	"github.com/cpexc/go-cpx/metrics/prometheus"
 )
 
 type exp struct {

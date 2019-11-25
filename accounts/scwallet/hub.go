@@ -1,18 +1,18 @@
-// Copyright 2018 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2018 The go-cpx Authors
+// This file is part of the go-cpx library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-cpx library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-cpx library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-cpx library. If not, see <http://www.gnu.org/licenses/>.
 
 // This package implements support for smartcard-based hardware wallets such as
 // the one written by Status: https://github.com/status-im/hardware-wallet
@@ -41,10 +41,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/cpexc/go-cpx/accounts"
+	"github.com/cpexc/go-cpx/common"
+	"github.com/cpexc/go-cpx/event"
+	"github.com/cpexc/go-cpx/log"
 	pcsc "github.com/gballet/go-libpcsclite"
 )
 

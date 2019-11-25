@@ -1,18 +1,18 @@
-// Copyright 2017 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2017 The go-cpx Authors
+// This file is part of the go-cpx library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-cpx library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-cpx library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-cpx library. If not, see <http://www.gnu.org/licenses/>.
 
 package core
 
@@ -22,12 +22,12 @@ import (
 	"testing"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/cpexc/go-cpx/common"
+	"github.com/cpexc/go-cpx/consensus/ethash"
+	"github.com/cpexc/go-cpx/core/rawdb"
+	"github.com/cpexc/go-cpx/core/vm"
+	"github.com/cpexc/go-cpx/ethdb"
+	"github.com/cpexc/go-cpx/params"
 )
 
 func TestDefaultGenesisBlock(t *testing.T) {

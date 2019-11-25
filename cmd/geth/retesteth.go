@@ -1,18 +1,18 @@
-// Copyright 2019 The go-ethereum Authors
-// This file is part of go-ethereum.
+// Copyright 2019 The go-cpx Authors
+// This file is part of go-cpx.
 //
-// go-ethereum is free software: you can redistribute it and/or modify
+// go-cpx is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-ethereum is distributed in the hope that it will be useful,
+// go-cpx is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-ethereum. If not, see <http://www.gnu.org/licenses/>.
+// along with go-cpx. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -26,26 +26,26 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/consensus/misc"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/ethereum/go-ethereum/rpc"
-	"github.com/ethereum/go-ethereum/trie"
+	"github.com/cpexc/go-cpx/cmd/utils"
+	"github.com/cpexc/go-cpx/common"
+	"github.com/cpexc/go-cpx/common/hexutil"
+	"github.com/cpexc/go-cpx/common/math"
+	"github.com/cpexc/go-cpx/consensus"
+	"github.com/cpexc/go-cpx/consensus/ethash"
+	"github.com/cpexc/go-cpx/consensus/misc"
+	"github.com/cpexc/go-cpx/core"
+	"github.com/cpexc/go-cpx/core/rawdb"
+	"github.com/cpexc/go-cpx/core/state"
+	"github.com/cpexc/go-cpx/core/types"
+	"github.com/cpexc/go-cpx/core/vm"
+	"github.com/cpexc/go-cpx/crypto"
+	"github.com/cpexc/go-cpx/ethdb"
+	"github.com/cpexc/go-cpx/log"
+	"github.com/cpexc/go-cpx/node"
+	"github.com/cpexc/go-cpx/params"
+	"github.com/cpexc/go-cpx/rlp"
+	"github.com/cpexc/go-cpx/rpc"
+	"github.com/cpexc/go-cpx/trie"
 
 	cli "gopkg.in/urfave/cli.v1"
 )
