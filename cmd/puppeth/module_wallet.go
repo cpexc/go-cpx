@@ -1,18 +1,18 @@
-// Copyright 2017 The go-cpx Authors
-// This file is part of go-cpx.
+// Copyright 2017 The go-ethereum Authors
+// This file is part of go-ethereum.
 //
-// go-cpx is free software: you can redistribute it and/or modify
+// go-ethereum is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-cpx is distributed in the hope that it will be useful,
+// go-ethereum is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-cpx. If not, see <http://www.gnu.org/licenses/>.
+// along with go-ethereum. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -29,6 +29,11 @@ import (
 )
 
 // walletDockerfile is the Dockerfile required to run a web wallet.
+/*
+# remove mew context :: 20191111 dadfkim
+# problam by origin puppeth/wallet resource, to not make docker image..
+# if you need wallet website do build, combine some wallet website and is it.
+# just remove and confirm is it.
 var walletDockerfile = `
 FROM puppeth/wallet:latest
 
@@ -48,9 +53,25 @@ RUN \
 
 ENTRYPOINT ["/bin/sh", "wallet.sh"]
 `
+*/
+
+// --rpcapi "db,eth,net,web3,personal,debug,txpool" :: remove options by defending attack point :: 20191113 :: dadfkim
+// eth,net,web3 :: default options :: readme.md
+var walletDockerfile = `
+FROM cpublic/wallet:1.9.6
+
+ADD genesis.json /genesis.json
+
+RUN \
+	echo 'geth --cache 512 init /genesis.json' > wallet.sh && \
+	echo $'exec geth --networkid {{.NetworkID}} --port {{.NodePort}} --bootnodes {{.Bootnodes}} --ethstats \'{{.Cpxstats}}\' --cache=512 --rpc --rpcaddr=0.0.0.0 --rpccorsdomain "*" --rpcvhosts "*"' >> wallet.sh
+
+ENTRYPOINT ["/bin/sh", "wallet.sh"]
+`
 
 // walletComposefile is the docker-compose.yml file required to deploy and
 // maintain a web wallet.
+/*
 var walletComposefile = `
 version: '2'
 services:
@@ -77,6 +98,31 @@ services:
         max-file: "10"
     restart: always
 `
+*/
+
+var walletComposefile = `
+version: '2'
+services:
+  wallet:
+    build: .
+    image: {{.Network}}/wallet
+    container_name: {{.Network}}_wallet_1
+    ports:
+      - "{{.NodePort}}:{{.NodePort}}"
+      - "{{.NodePort}}:{{.NodePort}}/udp"
+      - "{{.RPCPort}}:8545"
+    volumes:
+      - {{.Datadir}}:/root/.ethereum
+    environment:
+      - NODE_PORT={{.NodePort}}/tcp
+      - STATS={{.Cpxstats}}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "10"
+    restart: always
+`
 
 // deployWallet deploys a new web wallet container to a remote machine via SSH,
 // docker and docker-compose. If an instance with the specified network name
@@ -94,7 +140,7 @@ func deployWallet(client *sshClient, network string, bootnodes []string, config 
 		"NodePort":  config.nodePort,
 		"RPCPort":   config.rpcPort,
 		"Bootnodes": strings.Join(bootnodes, ","),
-		"Ethstats":  config.ethstats,
+		"Cpxstats":  config.cpxstats,
 		"Host":      client.address,
 	})
 	files[filepath.Join(workdir, "Dockerfile")] = dockerfile.Bytes()
@@ -105,9 +151,9 @@ func deployWallet(client *sshClient, network string, bootnodes []string, config 
 		"Network":  network,
 		"NodePort": config.nodePort,
 		"RPCPort":  config.rpcPort,
-		"VHost":    config.webHost,
-		"WebPort":  config.webPort,
-		"Ethstats": config.ethstats[:strings.Index(config.ethstats, ":")],
+		//"VHost":    config.webHost,
+		//"WebPort":  config.webPort,
+		"Cpxstats": config.cpxstats[:strings.Index(config.cpxstats, ":")],
 	})
 	files[filepath.Join(workdir, "docker-compose.yaml")] = composefile.Bytes()
 
@@ -132,7 +178,7 @@ type walletInfos struct {
 	genesis  []byte
 	network  int64
 	datadir  string
-	ethstats string
+	cpxstats string
 	nodePort int
 	rpcPort  int
 	webHost  string
@@ -144,7 +190,7 @@ type walletInfos struct {
 func (info *walletInfos) Report() map[string]string {
 	report := map[string]string{
 		"Data directory":         info.datadir,
-		"Ethstats username":      info.ethstats,
+		"Cpxstats username":      info.cpxstats,
 		"Node listener port ":    strconv.Itoa(info.nodePort),
 		"RPC listener port ":     strconv.Itoa(info.rpcPort),
 		"Website address ":       info.webHost,
@@ -165,20 +211,23 @@ func checkWallet(client *sshClient, network string) (*walletInfos, error) {
 		return nil, ErrServiceOffline
 	}
 	// Resolve the port from the host, or the reverse proxy
-	webPort := infos.portmap["80/tcp"]
-	if webPort == 0 {
-		if proxy, _ := checkNginx(client, network); proxy != nil {
-			webPort = proxy.port
+	/*
+		# remove mew context :: 20191111 dadfkim
+		webPort := infos.portmap["80/tcp"]
+		if webPort == 0 {
+			if proxy, _ := checkNginx(client, network); proxy != nil {
+				webPort = proxy.port
+			}
 		}
-	}
-	if webPort == 0 {
-		return nil, ErrNotExposed
-	}
-	// Resolve the host from the reverse-proxy and the config values
-	host := infos.envvars["VIRTUAL_HOST"]
-	if host == "" {
-		host = client.server
-	}
+		if webPort == 0 {
+			return nil, ErrNotExposed
+		}
+		// Resolve the host from the reverse-proxy and the config values
+		host := infos.envvars["VIRTUAL_HOST"]
+		if host == "" {
+			host = client.server
+		}
+	*/
 	// Run a sanity check to see if the devp2p and RPC ports are reachable
 	nodePort := infos.portmap[infos.envvars["NODE_PORT"]]
 	if err = checkPort(client.server, nodePort); err != nil {
@@ -193,9 +242,9 @@ func checkWallet(client *sshClient, network string) (*walletInfos, error) {
 		datadir:  infos.volumes["/root/.ethereum"],
 		nodePort: nodePort,
 		rpcPort:  rpcPort,
-		webHost:  host,
-		webPort:  webPort,
-		ethstats: infos.envvars["STATS"],
+		//webHost:  host,
+		//webPort:  webPort,
+		cpxstats: infos.envvars["STATS"],
 	}
 	return stats, nil
 }

@@ -1,18 +1,18 @@
-// Copyright 2017 The go-cpx Authors
-// This file is part of go-cpx.
+// Copyright 2017 The go-ethereum Authors
+// This file is part of go-ethereum.
 //
-// go-cpx is free software: you can redistribute it and/or modify
+// go-ethereum is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-cpx is distributed in the hope that it will be useful,
+// go-ethereum is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-cpx. If not, see <http://www.gnu.org/licenses/>.
+// along with go-ethereum. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -141,6 +141,8 @@ func (w *wizard) manageComponents() {
 		server := serviceHosts[choice-1]
 		client := w.servers[server]
 
+		// cpxstats 경우 원격 이미지 삭제 방식이 다르므로 에러 표기 됨, 이미지는 직접 삭제 하면 된다. docker-compose 사용하므로 변경사항은 반영된다.
+		// 전체 process 변경을 할 경우 수정 가능.. 구조 자체를 변경 해야됨. 20190709 dadfkim@hanmail.net
 		if out, err := tearDown(client, w.network, service, true); err != nil {
 			log.Error("Failed to tear down component", "err", err)
 			if len(out) > 0 {
@@ -171,29 +173,29 @@ func (w *wizard) deployComponent() {
 	// Print all the things we can deploy and wait or user choice
 	fmt.Println()
 	fmt.Println("What would you like to deploy? (recommended order)")
-	fmt.Println(" 1. Ethstats  - Network monitoring tool")
+	fmt.Println(" 1. Cpxstats  - Network monitoring tool")
 	fmt.Println(" 2. Bootnode  - Entry point of the network")
 	fmt.Println(" 3. Sealer    - Full node minting new blocks")
-	fmt.Println(" 4. Explorer  - Chain analysis webservice")
-	fmt.Println(" 5. Wallet    - Browser wallet for quick sends")
+	fmt.Println(" 4. Wallet    - Browser wallet for quick sends")
+	fmt.Println(" 5. Explorer  - Chain analysis webservice")
 	fmt.Println(" 6. Faucet    - Crypto faucet to give away funds")
-	fmt.Println(" 7. Dashboard - Website listing above web-services")
+	//fmt.Println(" 7. Dashboard - Website listing above web-services")
 
 	switch w.read() {
 	case "1":
-		w.deployEthstats()
+		w.deployCpxstats()
 	case "2":
 		w.deployNode(true)
 	case "3":
 		w.deployNode(false)
 	case "4":
-		w.deployExplorer()
-	case "5":
 		w.deployWallet()
+	case "5":
+		w.deployExplorer()
 	case "6":
 		w.deployFaucet()
-	case "7":
-		w.deployDashboard()
+	//case "7":
+	//	w.deployDashboard()
 	default:
 		log.Error("That's not something I can do")
 	}

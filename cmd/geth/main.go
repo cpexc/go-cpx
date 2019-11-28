@@ -28,7 +28,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/elastic/gosigar"
 	"github.com/cpexc/go-cpx/accounts"
 	"github.com/cpexc/go-cpx/accounts/keystore"
 	"github.com/cpexc/go-cpx/cmd/utils"
@@ -42,11 +41,12 @@ import (
 	"github.com/cpexc/go-cpx/log"
 	"github.com/cpexc/go-cpx/metrics"
 	"github.com/cpexc/go-cpx/node"
+	"github.com/elastic/gosigar"
 	cli "gopkg.in/urfave/cli.v1"
 )
 
 const (
-	clientIdentifier = "geth" // Client identifier to advertise over the network
+	clientIdentifier = "cpx" // Client identifier to advertise over the network
 )
 
 var (
@@ -54,7 +54,7 @@ var (
 	gitCommit = ""
 	gitDate   = ""
 	// The app that holds all commands and flags.
-	app = utils.NewApp(gitCommit, gitDate, "the go-cpx command line interface")
+	app = utils.NewApp(gitCommit, gitDate, "the go-cpx included go-ethereum command line interface")
 	// flags that configure the node
 	nodeFlags = []cli.Flag{
 		utils.IdentityFlag,
@@ -193,7 +193,7 @@ func init() {
 	// Initialize the CLI app and start Geth
 	app.Action = geth
 	app.HideVersion = true // we have a command to print the version
-	app.Copyright = "Copyright 2013-2019 The go-cpx Authors"
+	app.Copyright = "Copyright 2019 cpx included The go-ethereum Authors"
 	app.Commands = []cli.Command{
 		// See chaincmd.go:
 		initCommand,
