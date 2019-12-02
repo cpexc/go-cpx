@@ -58,7 +58,7 @@ ENTRYPOINT ["/bin/sh", "wallet.sh"]
 // --rpcapi "db,eth,net,web3,personal,debug,txpool" :: remove options by defending attack point :: 20191113 :: dadfkim
 // eth,net,web3 :: default options :: readme.md
 var walletDockerfile = `
-FROM cpublic/wallet:1.9.6
+FROM cpublic/wallet:1.9.8
 
 ADD genesis.json /genesis.json
 

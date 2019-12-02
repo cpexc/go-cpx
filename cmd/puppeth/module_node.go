@@ -32,7 +32,7 @@ import (
 
 // nodeDockerfile is the Dockerfile required to run an Ethereum node.
 var nodeDockerfile = `
-FROM cpublic/client-go:1.9.6
+FROM cpublic/client-go:1.9.8
 
 ADD genesis.json /genesis.json
 {{if .Unlock}}
